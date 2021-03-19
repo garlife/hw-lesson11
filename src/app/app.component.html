@@ -1,0 +1,9 @@
+<h2>Пользователи</h2>
+<div *ngFor="let user of users; let i = index">
+<p>{{i}} {{user.name + " (" + user.username + ")"}}</p>
+</div>
+
+<!-- <button (click)="getUsers()">Лог</button>
+<pre>{{users | json}}</pre> -->
+
+
