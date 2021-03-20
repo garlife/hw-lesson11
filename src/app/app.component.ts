@@ -12,7 +12,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
   formUser: FormGroup;
-  displayedColumns: string[] = ['name', 'email']
+  displayedColumns: string[] = ['nameNick', 'email', 'addressname', 'action']
 
 
   dataSource;
@@ -38,8 +38,9 @@ export class AppComponent implements OnInit {
           this.fb.group({
             name: this.fb.control(user.name),
             username: this.fb.control(user.username),
+            nameNick: this.fb.control(user.nameNick),
             email: this.fb.control(user.email),
-            // addressname: this.fb.control(user.addressname),
+            addressname: this.fb.control(user.addressname),
           })
         )
       );
@@ -56,12 +57,11 @@ export class AppComponent implements OnInit {
           user.email
             .trim()
             .toLowerCase()
-            .includes(filter.trim().toLowerCase()) 
-            
-        //   || user.addressname
-        //     .trim()
-        //     .toLowerCase()
-        //     .includes(filter.trim().toLowerCase())
+            .includes(filter.trim().toLowerCase())      
+          || user.addressname
+            .trim()
+            .toLowerCase()
+            .includes(filter.trim().toLowerCase())
         );
       };
     });
@@ -71,6 +71,22 @@ export class AppComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue;
   }
+  add(i){
+    (this.formUser.get('users') as FormArray).insert(i+1, this.fb.group({
+      name: this.fb.control(''),
+      username: this.fb.control(''),
+      nameNick: this.fb.control(''),
+      email: this.fb.control(''),
+      addressname: this.fb.control('')
+    }));
+    this.dataSource = new MatTableDataSource((this.formUser.get('users') as FormArray).controls);
+  }
+  del(i){
+    (this.formUser.get('users') as FormArray).removeAt(i);
+    this.dataSource = new MatTableDataSource((this.formUser.get('users') as FormArray).controls);
+    this.usersService.delUser(i);
+  }
+
 }
 
 

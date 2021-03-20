@@ -16,11 +16,11 @@
         
         <ng-container formArrayName="users">
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <ng-container matColumnDef="name">
+            <ng-container matColumnDef="nameNick">
               <th mat-header-cell *matHeaderCellDef>NAME</th>
               <td mat-cell *matCellDef="let element" [formGroup]="element">
                 <mat-form-field style="width: 300px" appearance="outline">
-                  <input matInput type="text" formControlName="name"
+                  <input matInput type="text" formControlName="nameNick"
                 /></mat-form-field>
               </td>
             </ng-container>
@@ -32,24 +32,24 @@
                 /></mat-form-field>
               </td>
             </ng-container>
-            <!-- <ng-container matColumnDef="addressname">
+            <ng-container matColumnDef="addressname">
               <th mat-header-cell *matHeaderCellDef>Адрес пользователя</th>
               <td mat-cell *matCellDef="let element" [formGroup]="element">
                 <mat-form-field style="width: 300px" appearance="outline">
                   <input matInput type="text" formControlName="addressname"
                 /></mat-form-field>
               </td>
-            </ng-container> -->
+            </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
               <td mat-cell *matCellDef="let element; let i = index">
-                <button mat-fab color="primary" (click)="create(i)">
-                  <mat-icon>add</mat-icon>
+                <button mat-raised-button color="primary" (click)="add(i)">
+                  <mat-button>Add</mat-button>
                 </button>
-                <button mat-fab color="warn" (click)="deleteUser(i)">
-                  <mat-icon>delete</mat-icon>
+                <button mat-raised-button color="warn" (click)="del(i)">
+                  <mat-button>Del</mat-button>
                 </button>
               </td>
             </ng-container>

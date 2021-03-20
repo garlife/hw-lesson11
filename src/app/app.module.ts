@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material-module';
 import { Mod1Module } from './mod1/mod1.module';
+import { UsersService } from './users.service';
+import { AddrConcatInterceptor } from './addr-concat.interceptor';
 
 
 
@@ -24,9 +26,9 @@ import { Mod1Module } from './mod1/mod1.module';
     Mod1Module,
     ReactiveFormsModule,
     FormsModule,
-    MaterialModule
+    MaterialModule 
   ],
-  providers: [],
+  providers: [UsersService,{provide: HTTP_INTERCEPTORS, useClass: AddrConcatInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
